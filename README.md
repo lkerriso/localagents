@@ -59,7 +59,7 @@ pip install ollama
 ✅ Checkpoint: your prompt starts with (.venv) and pip finished without errors.
 
 Step 5: Run the agent 
-python agent.py "How tall is the Eiffel Tower?"
+python agent.py "What is the fastest bird in the world?"
 
 (Windows: python agent.py ...)
 
@@ -89,15 +89,3 @@ Something the model can't know on its own: Who won the most recent Nobel Prize i
 Expect it to be imperfect
 
 A 1B model is tiny. Sometimes it picks a strange search query, ignores the results, or answers wrongly. That is normal and is part of the lesson: the loop works, but model quality matters. Compare the [step] lines to the answer and see where it went wrong.
-
-Troubleshooting
-Problem	Fix
-ollama: command not found	Close and reopen the terminal. Still missing? Re-run the installer.
-Could not reach the model	Ollama isn't running. Mac/Windows: open the Ollama app. Linux: run ollama serve in another terminal.
-model ... not found	Run the Step 2 ollama pull command again and let it finish.
-python: command not found	Try python3. If neither works, ask a helper.
-Search failed: ...	Wi-Fi problem. The agent still runs but can't look things up.
-Garbled or looping output	Normal for tiny models. Press Ctrl+C and rephrase the question.
-Files
-agent.py: the whole agent, about 100 lines. Read the three comments THINK, ACT, OBSERVE.
-requirements.txt: the one dependency (ollama, the Python client).
