@@ -65,7 +65,7 @@ python agent.py "What is the fastest bird in the world?"
 
 You will see the loop happen:
 
-[step 1] searching for: Eiffel Tower height
+[step 1] searching for: Falcon speeds
 [step 1] got 1473 characters back
 ANSWER: ...
 
