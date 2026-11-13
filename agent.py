@@ -15,7 +15,7 @@ import ollama
 
 # The model to talk to. Override with:  MODEL=llama3.2:1b python agent.py
 MODEL = os.environ.get("MODEL", "hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF:Q4_K_M")
-MAX_STEPS = 5  # safety limit so the loop can never run forever
+MAX_STEPS = 4  # safety limit so the loop can never run forever
 
 SYSTEM_PROMPT = """You are a research assistant. You have ONE tool:
 
@@ -29,7 +29,8 @@ Reply with ONLY a JSON object and nothing else. Two forms are allowed:
 Rules:
 - For factual questions, search first.
 - After you receive search results, answer using ONLY those results.
-- If the results are empty or unhelpful, try one different search query.
+- Search again ONLY if the results say "No results." Otherwise, answer.
+- Keep your answer short and give the specific fact asked for.
 """
 
 
@@ -55,7 +56,7 @@ def search(query: str) -> str:
     pages = sorted(pages, key=lambda page: page.get("index", 0))
     if not pages:
         return "No results."
-    return "\n\n".join(f"{p['title']}: {p.get('extract', '')[:500]}" for p in pages)
+    return "\n\n".join(f"{p['title']}: {p.get('extract', '')[:1200]}" for p in pages)
 
 
 # ---------------------------------------------------------------- the loop --
@@ -96,9 +97,13 @@ def run_agent(question: str) -> None:
             result = search(query)
             print(f"[step {step}] got {len(result)} characters back")
             # 3. OBSERVE: give the result back to the model, then loop
+            if step >= MAX_STEPS - 1:  # nearly out of steps: force a wrap-up
+                nudge = "You MUST now reply with the answer action, even if unsure."
+            else:
+                nudge = "Use these results to reply with the answer action now."
             messages.append({
                 "role": "user",
-                "content": f"Search results:\n{result}\n\nNow answer, or search again.",
+                "content": f"Search results:\n{result}\n\n{nudge}",
             })
         elif action.get("action") == "answer":
             print(f"\nANSWER: {action.get('text', '')}\n")
