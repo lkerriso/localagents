@@ -40,7 +40,7 @@ cd localagents
 
 No git? Use the green Code → Download ZIP button, unzip, and open a terminal in that folder.
 
-Step 4: Install the one dependency (~1 min)
+Step 4: Install python dependency
 
 Check Python first: python3 --version (Windows: python --version). You need 3.9 or newer.
 
@@ -49,16 +49,16 @@ Create a private environment and install:
 # Mac / Linux
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install ollama
 
 # Windows (PowerShell)
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install ollama
 
 ✅ Checkpoint: your prompt starts with (.venv) and pip finished without errors.
 
-Step 5: Run the agent (~1 min)
+Step 5: Run the agent 
 python agent.py "How tall is the Eiffel Tower?"
 
 (Windows: python agent.py ...)
