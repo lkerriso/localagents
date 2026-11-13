@@ -35,8 +35,8 @@ Type hello, watch it reply, then type /bye to leave.
 ✅ Checkpoint: the model says hello back. yay!
 
 Step 3: Get the agent code 
-git clone <YOUR-REPO-URL>
-cd <YOUR-REPO-FOLDER>
+git clone https://github.com/lkerriso/localagents.git
+cd localagents
 
 No git? Use the green Code → Download ZIP button, unzip, and open a terminal in that folder.
 
